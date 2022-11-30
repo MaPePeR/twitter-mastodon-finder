@@ -393,7 +393,7 @@ class TwitterData extends StateCard {
     }
 
     loadUserData() {
-        return fetch(twitterAccess.getURL('/2/users/me?expansions=pinned_tweet_id&tweet.fields=text,entities&user.fields=name,username,description,location,entities'), {
+        return fetch(twitterAccess.getURL('/2/users/me?expansions=pinned_tweet_id&tweet.fields=text,entities&user.fields=name,username,description,location,entities,url'), {
             headers: this.getHeader(),
         }).then((r) => r.json())
         .then(this.preparePinnedTweetIncludes)
@@ -409,7 +409,7 @@ class TwitterData extends StateCard {
     }
 
     loadFollowings(id, cursor) {
-        return fetch(twitterAccess.getURL(`/2/users/${id}/following?expansions=pinned_tweet_id&max_results=1000&tweet.fields=text,entities&user.fields=name,username,description,location,entities,profile_image_url` + (cursor ? `&pagination_token=${cursor}` : '')), {
+        return fetch(twitterAccess.getURL(`/2/users/${id}/following?expansions=pinned_tweet_id&max_results=1000&tweet.fields=text,entities&user.fields=name,username,description,location,entities,url,profile_image_url` + (cursor ? `&pagination_token=${cursor}` : '')), {
             headers: this.getHeader(),
         }).then((response) => response.json())
         .then(this.preparePinnedTweetIncludes)
@@ -468,6 +468,9 @@ class TwitterData extends StateCard {
             if ("entities" in pinnedTweet && "urls" in pinnedTweet.entities) {
                 texts.push(...pinnedTweet.entities.urls.map((u) => u.expanded_url));
             }
+        }
+        if ("url" in userData) {
+            texts.push(userData.url);
         }
         const possibleHandles = findHandles(texts.join(' '));
         userData.possible_handles = possibleHandles;
