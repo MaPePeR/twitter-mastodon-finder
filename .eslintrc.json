@@ -1,0 +1,46 @@
+{
+    "env": {
+        "es6": true,
+        "browser": true
+    },
+    "parserOptions": {
+        "ecmaVersion": 2019
+    },
+    "extends": "eslint:recommended",
+    "rules": {
+        "comma-spacing": "error",
+        "indent": ["error", 4, {"MemberExpression": "off"}],
+        "key-spacing": "error",
+        "no-trailing-spaces": "error",
+        "block-spacing": "error",
+        "brace-style": "error",
+        "keyword-spacing": ["error"],
+        "space-in-parens": ["error", "never"],
+        "space-before-blocks": "error",
+        "func-call-spacing": ["error", "never"],
+        "space-infix-ops": ["error", { "int32Hint": true }],
+        "semi": ["error", "always"],
+        "comma-dangle": ["warn", {
+            "arrays": "always-multiline",
+            "objects": "always-multiline",
+            "imports": "never",
+            "exports": "never",
+            "functions": "never"
+        }],
+        "strict": ["error", "global"],
+        "no-unused-vars": ["error", {
+            "args": "none",
+            "varsIgnorePattern": "^_$"
+        }]
+    },
+    "overrides": [
+        {
+          "files": [
+            "**/*.mjs"
+          ],
+          "parserOptions": {
+            "sourceType": "module"
+          }
+        }
+    ]
+}
